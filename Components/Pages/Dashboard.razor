@@ -1,0 +1,265 @@
+﻿@page "/dashboard"
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Charts
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Inputs
+
+@using System;
+@using System.Collections.Generic;
+
+@using MathNet.Numerics.LinearAlgebra;
+@using MathNet.Numerics.LinearRegression;
+@using MathNet.Numerics;
+
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+
+<div class="col-lg-8 control-section sb-property-border">
+    <SfChart Title="Curve of Best Fit" >
+        <ChartArea><ChartAreaBorder Width="0"></ChartAreaBorder></ChartArea>
+        <ChartPrimaryXAxis Minimum="-18" Maximum="18" Interval="2" CrossesAt="@XCrossesAt" MinorTicksPerInterval="3" PlaceNextToAxisLine="@PlaceX">
+            <ChartAxisMajorGridLines Width="0"></ChartAxisMajorGridLines>
+        </ChartPrimaryXAxis>
+        <ChartPrimaryYAxis Minimum="-18" Maximum="18" Interval="2" CrossesAt="@YCrossesAt" MinorTicksPerInterval="3" PlaceNextToAxisLine="@PlaceY">
+            <ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
+        </ChartPrimaryYAxis>
+        <ChartTooltipSettings Enable="true"></ChartTooltipSettings>
+        <ChartSeriesCollection>
+            <ChartSeries DataSource="@LinePoints" EnableTooltip="false" Name="Linear Line" XName="XValue" Width="2"
+                         Opacity="1" YName="YValue" Type="ChartSeriesType.Line" Fill="Blue">
+            </ChartSeries>
+
+            @if (QuadraticPoints != null)
+            {
+              <ChartSeries DataSource="@QuadraticPoints" EnableTooltip="false" Name="Quadratic Curve" XName="XValue" Width="2"
+                         Opacity="1" YName="YValue" Type="ChartSeriesType.Spline" Fill="Orange">
+              </ChartSeries>
+            }
+
+            @if (SplinePoints != null)
+            {
+              <ChartSeries DataSource="@SplinePoints" EnableTooltip="false" Name="Cubic Curve" XName="XValue" Width="2"
+                         Opacity="1" YName="YValue" Type="ChartSeriesType.Spline" Fill="Green">
+              </ChartSeries>
+            }
+
+            <ChartSeries DataSource="@ScatterPoints" EnableTooltip="true" Name="Data points" XName="XValue" Width="2"
+                         Opacity="1" YName="YValue" Type="ChartSeriesType.Scatter" Fill="Red">
+                <ChartMarker Visible="true" Width="7" Height="7">
+                </ChartMarker>
+            </ChartSeries>
+        </ChartSeriesCollection>
+        <ChartLegendSettings EnableHighlight="true" ToggleVisibility="false"></ChartLegendSettings>
+    </SfChart>
+</div>
+<div class="col-lg-4 property-section">
+    <div class="property-panel-section">
+        <div class="property-panel-header">Properties</div>
+        <div class="property-panel-content">
+            <table style="width: 100%">
+                <tr style="height: 50px">
+                    <td style="width: 50%">
+                        <div>Curve</div>
+                    </td>
+                    <td style="width: 40%;">
+                        <div style='margin-top: 0px;'>
+                          <select @bind="SelectedFunction" class="dropdown" >
+                            <option value="linear">Linear</option>
+                            <option value="quadratic">Quadratic</option>
+                            <option value="cubic">Cubic</option>
+                          </select>
+                        </div>
+                    </td>
+
+                    <td>
+                      <button @onclick="DrawCurve">Draw</button>
+                    </td>
+                </tr>
+
+                <tr style="height: 50px">
+                    <td style="width: 60%">
+                        <div>Axis X:</div>
+                    </td>
+
+                    <td style="width: 40%;">
+                        <div style='margin-top: 0px;'>
+                            <SfNumericTextBox TValue="double" Value="@XValue" Max=100 Min=-100 ValidateDecimalOnType=true Decimals=3 Format="n3">
+                                <NumericTextBoxEvents TValue="double" ValueChange="ChangeXValue" />
+                            </SfNumericTextBox>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr style="height: 50px">
+                    <td style="width: 50%">
+                        <div>Axis Y: </div>
+                    </td>
+                    <td style="width: 40%;">
+                        <div style='margin-top: 0px;'>
+                            <SfNumericTextBox TValue="double" Value="@YValue" Max=100 Min=-100 ValidateDecimalOnType=true Decimals=3 Format="n3">
+                                <NumericTextBoxEvents TValue="double" ValueChange="ChangeYValue" />
+                            </SfNumericTextBox>
+                        </div>
+                    </td>
+                </tr>
+
+                <button @onclick="UpdateCoordinates">Submit</button>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@code{
+    public class AxisData
+    {
+        public double XValue { get; set; }
+        public double YValue { get; set; }
+    }
+
+    public class DropDownData
+    {
+        public string ID { get; set; }
+    }
+
+
+    private string axis = "X";
+    private bool PlaceX = true, PlaceY = true, IsChecked = true;
+    private double CrossValue = 0, XCrossesAt = 0, YCrossesAt = 0;
+    private double XValue = 0, YValue = 0;
+
+    public double[] XValueList { get; set; }
+    public double[] YValueList { get; set; }
+    public double[] QuadraticRegression { get; set; }
+    public double[] LinearRegression { get; set; }
+    public double[] CubicRegression { get; set; }
+
+    public List<AxisData> ScatterPoints { get; set; } = new(); 
+
+    public List<AxisData> SplinePoints { get; set; } = new(); 
+    public List<AxisData> LinePoints { get; set; } = new();
+    public List<AxisData> QuadraticPoints { get; set; } = new();
+
+
+
+    private string SelectedFunction { get; set; } = "linear";
+
+    public void DrawCurve() 
+    {
+      if (SelectedFunction == "linear")
+      {
+        LinePoints = CalculateLinearRegression(XValueList, YValueList); 
+      }
+
+      if (SelectedFunction == "quadratic")
+      {
+        QuadraticPoints = CalculateQuadraticRegression(XValueList, YValueList);
+      }
+
+      if (SelectedFunction == "cubic")
+      {
+        SplinePoints = CalculateCubicRegression(XValueList, YValueList); 
+      }
+    }
+
+    public void ChangeXValue(Syncfusion.Blazor.Inputs.ChangeEventArgs<double> args)
+    {
+      Console.WriteLine("X Change to "+ args.Value);
+      XValue = args.Value;
+    }
+
+    public void ChangeYValue(Syncfusion.Blazor.Inputs.ChangeEventArgs<double> args)
+    {
+      Console.WriteLine("Y Change to "+ args.Value);
+      YValue = args.Value;
+    }
+
+    public void UpdateCoordinates()
+    {
+      ScatterPoints.Add(new AxisData { XValue = XValue, YValue = YValue });
+      XValueList = ScatterPoints.Select(point => point.XValue).ToArray();
+      YValueList = ScatterPoints.Select(point => point.YValue).ToArray();
+    }
+    
+    public List<AxisData> CalculateLinearRegression(double[] xValues,
+                                            double[] yValues) 
+    {
+      ValueTuple<double, double> VectorDetails = Fit.Line(xValues, yValues);
+
+      double a = VectorDetails.Item1; // intercept
+      double b = VectorDetails.Item2; // slope
+
+      double x1 = 16;
+      double x2 = -16;
+      double y1 = a + b * x1;
+      double y2 = a + b * x2;
+
+      return new List<AxisData>
+      {
+        new AxisData { XValue = x1, YValue = y1},
+        new AxisData { XValue = x2, YValue = y2 },
+      };   
+    }
+
+    public List<AxisData>? CalculateQuadraticRegression(double[] xValues, double[] yValues) {
+      if (xValues.Length < 3 || yValues.Length < 3) 
+      {
+        return null; 
+      }       
+
+      // -2x^2 + 8x + 7
+      // a > 0: open up, a < 0; open down
+      // max point x = -b/2a = 2
+      // y = -2(2)^2 + 8*2 +7 = -15
+
+      double[] q = Fit.Polynomial(XValueList, YValueList, 2);
+
+      double c = q[0];
+      double b = q[1];
+      double aQuadratic = q[2];
+
+
+      List<AxisData> axisData = new();
+
+      for (double x = -14; x <= 10; x += 1) 
+      {
+          double y = Math.Pow(x, 2) * aQuadratic + x * b + c;
+          axisData.Add(new AxisData { XValue = x, YValue = y });
+      }
+
+      return axisData;
+
+      }
+
+    public List<AxisData>? CalculateCubicRegression(double[] xValues, double[] yValues) {
+      if (xValues.Length < 5 || yValues.Length < 5) 
+      {
+        Console.WriteLine("xvalue: " + xValues);
+        Console.WriteLine("yvalue: " + yValues);
+        return null; 
+      }       
+
+      double[] q = Fit.Polynomial(XValueList, YValueList, 3);
+
+      double d = q[0];
+      double c = q[1];
+      double b = q[2];
+      double aCubic = q[3];
+
+      Console.WriteLine("a b c d " + aCubic + b + c + d);
+
+      // aCubic * X ^ 3 * X + X ^ 2 * b + X * c + d 
+      List<AxisData> axisData = new();
+
+      for (double x = -14; x <= 10; x += 1) // Adjust the range and step as needed
+      {
+          double y = Math.Pow(x, 3) * aCubic + Math.Pow(x, 2) * b + x * c + d;
+          axisData.Add(new AxisData { XValue = x, YValue = y });
+      }
+
+      return axisData;
+
+    }
+}

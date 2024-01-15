@@ -1,0 +1,82 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/highfunctioning_sociopathhh/BlazorApp/BlazorApp.csproj": {}
+  },
+  "projects": {
+    "/Users/highfunctioning_sociopathhh/BlazorApp/BlazorApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/highfunctioning_sociopathhh/BlazorApp/BlazorApp.csproj",
+        "projectName": "BlazorApp",
+        "projectPath": "/Users/highfunctioning_sociopathhh/BlazorApp/BlazorApp.csproj",
+        "packagesPath": "/Users/highfunctioning_sociopathhh/.nuget/packages/",
+        "outputPath": "/Users/highfunctioning_sociopathhh/BlazorApp/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/highfunctioning_sociopathhh/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "MathNet.Numerics": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Syncfusion.Blazor.Buttons": {
+              "target": "Package",
+              "version": "[24.1.45, )"
+            },
+            "Syncfusion.Blazor.Charts": {
+              "target": "Package",
+              "version": "[24.1.45, )"
+            },
+            "Syncfusion.Blazor.DropDowns": {
+              "target": "Package",
+              "version": "[24.1.45, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

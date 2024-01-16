@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WAL8Qj2VuCctfcAqzKruhXyfjrngu0EQTuOpznPBrXs=",
+  "Hash": "LlbuzQ6w5SHv3017bUjEQnQJyotdL7YTn/Te0xzhN54=",
   "Source": "BlazorApp",
   "BasePath": "_content/BlazorApp",
   "Mode": "Default",
@@ -16,6 +16,44 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "/Users/highfunctioning_sociopathhh/.nuget/packages/mathjaxblazor/2.0.1/staticwebassets/mathJaxBlazor.js",
+      "SourceId": "MathJaxBlazor",
+      "SourceType": "Package",
+      "ContentRoot": "/Users/highfunctioning_sociopathhh/.nuget/packages/mathjaxblazor/2.0.1/staticwebassets/",
+      "BasePath": "_content/MathJaxBlazor",
+      "RelativePath": "mathJaxBlazor.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/Users/highfunctioning_sociopathhh/.nuget/packages/mathjaxblazor/2.0.1/staticwebassets/mathJaxBlazor.js"
+    },
+    {
+      "Identity": "/Users/highfunctioning_sociopathhh/.nuget/packages/mathjaxblazor/2.0.1/staticwebassets/mathJaxBlazor.js.map",
+      "SourceId": "MathJaxBlazor",
+      "SourceType": "Package",
+      "ContentRoot": "/Users/highfunctioning_sociopathhh/.nuget/packages/mathjaxblazor/2.0.1/staticwebassets/",
+      "BasePath": "_content/MathJaxBlazor",
+      "RelativePath": "mathJaxBlazor.js.map",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/Users/highfunctioning_sociopathhh/.nuget/packages/mathjaxblazor/2.0.1/staticwebassets/mathJaxBlazor.js.map"
+    },
     {
       "Identity": "/Users/highfunctioning_sociopathhh/.nuget/packages/syncfusion.blazor.buttons/24.1.45/staticwebassets/scripts/sf-floating-action-button.min.js",
       "SourceId": "Syncfusion.Blazor.Buttons",

@@ -2,6 +2,25 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "MathJaxBlazor/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "6.0.2",
+          "Microsoft.AspNetCore.Components.Web": "6.0.2"
+        },
+        "compile": {
+          "lib/net6.0/MathJaxBlazor.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/MathJaxBlazor.dll": {}
+        },
+        "build": {
+          "buildTransitive/MathJaxBlazor.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/MathJaxBlazor.props": {}
+        }
+      },
       "MathNet.Numerics/5.0.0": {
         "type": "package",
         "compile": {
@@ -670,6 +689,24 @@
     }
   },
   "libraries": {
+    "MathJaxBlazor/2.0.1": {
+      "sha512": "ziajSWWhW9gVrOUUm7xtdV8WaE7pSMbetI22P0BLQ9FQYb31EbSk/YqF7q7ThdKiUHNhjTaTffCGvNN0v6jJ4w==",
+      "type": "package",
+      "path": "mathjaxblazor/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/MathJaxBlazor.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/MathJaxBlazor.props",
+        "buildTransitive/MathJaxBlazor.props",
+        "lib/net6.0/MathJaxBlazor.dll",
+        "mathjaxblazor.2.0.1.nupkg.sha512",
+        "mathjaxblazor.nuspec",
+        "staticwebassets/mathJaxBlazor.js",
+        "staticwebassets/mathJaxBlazor.js.map"
+      ]
+    },
     "MathNet.Numerics/5.0.0": {
       "sha512": "pg1W2VwaEQMAiTpGK840hZgzavnqjlCMTVSbtVCXVyT+7AX4mc1o89SPv4TBlAjhgCOo9c1Y+jZ5m3ti2YgGgA==",
       "type": "package",
@@ -1627,6 +1664,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "MathJaxBlazor >= 2.0.1",
       "MathNet.Numerics >= 5.0.0",
       "Syncfusion.Blazor.Buttons >= 24.1.45",
       "Syncfusion.Blazor.Charts >= 24.1.45",
@@ -1670,6 +1708,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "MathJaxBlazor": {
+            "target": "Package",
+            "version": "[2.0.1, )"
+          },
           "MathNet.Numerics": {
             "target": "Package",
             "version": "[5.0.0, )"

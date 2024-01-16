@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MathJaxBlazor" Version="2.0.1" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="Syncfusion.Blazor.Buttons" Version="24.1.45" />
     <PackageReference Include="Syncfusion.Blazor.Charts" Version="24.1.45" />

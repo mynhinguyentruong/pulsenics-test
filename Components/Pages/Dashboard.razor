@@ -1,4 +1,6 @@
 ﻿@page "/dashboard"
+@using MathJaxBlazor
+
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Charts
 @using Syncfusion.Blazor.Buttons
@@ -59,6 +61,16 @@
         <div class="property-panel-header">Properties</div>
         <div class="property-panel-content">
             <table style="width: 100%">
+                  <tr style="height: 50px">
+                    <td style="width: 50%">
+                        <div>Equation: </div>
+                    </td>
+                    <td style="width: 100%; ">
+                      <Equation Value="@Equation" />
+                    </td>
+
+                </tr>
+
                 <tr style="height: 50px">
                     <td style="width: 50%">
                         <div>Curve</div>
@@ -130,6 +142,9 @@
     private double CrossValue = 0, XCrossesAt = 0, YCrossesAt = 0;
     private double XValue = 0, YValue = 0;
 
+    public string LinearEquation = "", QuadraticEquation = "", CubicEquation = "";
+    public string Equation = "y = ax + b";
+
     public double[] XValueList { get; set; }
     public double[] YValueList { get; set; }
     public double[] QuadraticRegression { get; set; }
@@ -196,6 +211,8 @@
       double y1 = a + b * x1;
       double y2 = a + b * x2;
 
+      Equation = $"y = {b.ToString()}x + {a.ToString()}"; 
+
       return new List<AxisData>
       {
         new AxisData { XValue = x1, YValue = y1},
@@ -220,6 +237,7 @@
       double b = q[1];
       double aQuadratic = q[2];
 
+      Equation = $"y = {c.ToString()}x^2 + {b.ToString()}x + {aQuadratic.ToString()}"; 
 
       List<AxisData> axisData = new();
 
@@ -248,7 +266,7 @@
       double b = q[2];
       double aCubic = q[3];
 
-      Console.WriteLine("a b c d " + aCubic + b + c + d);
+      Equation = $"y = {d.ToString()}x^3 + {c.ToString()}x^2 + {b.ToString()}x + {aCubic.ToString()}"; 
 
       // aCubic * X ^ 3 * X + X ^ 2 * b + X * c + d 
       List<AxisData> axisData = new();

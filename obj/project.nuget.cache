@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "06exxJ7isMd2VrP8aXLOu5PosxJ4gM62XHQI3Gc6J2c+oQ/n53RyNmkg6EOrgL1wvRZyU+qKN6ZotHEVNVBGdQ==",
+  "dgSpecHash": "VqNW27pXxKdrEGtEuJlbiDPv3kQ87s4ksffaki5sWD+ysYH2sjb16sTwz5HcUlyI4wP6SLGUnTEswi+1OF7GWQ==",
   "success": true,
   "projectFilePath": "/Users/highfunctioning_sociopathhh/BlazorApp/BlazorApp.csproj",
   "expectedPackageFiles": [
+    "/Users/highfunctioning_sociopathhh/.nuget/packages/mathjaxblazor/2.0.1/mathjaxblazor.2.0.1.nupkg.sha512",
     "/Users/highfunctioning_sociopathhh/.nuget/packages/mathnet.numerics/5.0.0/mathnet.numerics.5.0.0.nupkg.sha512",
     "/Users/highfunctioning_sociopathhh/.nuget/packages/microsoft.aspnetcore.authorization/8.0.0/microsoft.aspnetcore.authorization.8.0.0.nupkg.sha512",
     "/Users/highfunctioning_sociopathhh/.nuget/packages/microsoft.aspnetcore.components/8.0.0/microsoft.aspnetcore.components.8.0.0.nupkg.sha512",
